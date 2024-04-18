@@ -20,11 +20,12 @@ defineEmits(['closeDashboard'])
         Todo List
         </Link>
 
-        <!-- <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Finance' }">
+        <Link class="py-2 w-fit" href="/finance"
+            :class="{ 'underline font-bold': $page.component === 'Auth/Dashboard/Finance' }">
         Finance Tracker
         </Link>
 
-        <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Chat' }">
+        <!--  <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Chat' }">
         Chat Room
         </Link>
 

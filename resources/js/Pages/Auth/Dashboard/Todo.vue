@@ -1,27 +1,19 @@
 <script setup>
-import AuthLayout from '@/Layouts/AuthLayout.vue'
 import { Head } from '@inertiajs/vue3'
-import TodoActionsButton from '@/Components/TodoActionsButton.vue'
-import TodoOptions from '@/Components/TodoOptions.vue'
 import { ref } from 'vue'
+
+import AuthLayout from '@/Layouts/AuthLayout.vue'
+import TodoOptions from '@/Components/TodoOptions.vue'
+import TodoActionsButton from '@/Components/TodoActionsButton.vue'
 
 const showOptions = ref({
     show: false,
     id: null
 })
 
-const enableEdit = ref({
-    id: null
-})
-
-
-const toggleOptions = (id) => {
+const toggleShowOptions = (id) => {
     showOptions.value.show = !showOptions.value.show
     showOptions.value.id = id
-}
-
-const toggleEdit = (id) => {
-    enableEdit.value.id = id
 }
 
 const todos = [
@@ -83,8 +75,8 @@ const todos = [
     <Head title="Todo" />
 
     <AuthLayout>
-        <div class="flex flex-col gap-4 bg-gray-700 text-white px-4 h-full">
-            <h1 class="text-xl text-center pt-4">Todos</h1>
+        <div class="flex flex-col gap-4 bg-gray-700 text-white p-4 h-full">
+            <h1 class="text-xl text-center">Todos</h1>
 
             <div class="flex flex-col gap-2 bg-white p-4 rounded">
                 <input type="text" placeholder="ex. buy food"
@@ -101,16 +93,16 @@ const todos = [
                 </select>
             </div>
 
-            <div class="flex flex-col gap-2 pb-4">
+            <div class="flex flex-col gap-2">
                 <div v-for="todo in todos" :key="todo.id"
                     class="flex flex-col gap-2 p-3 rounded text-gray-700 bg-white">
 
                     <div class="flex items-center justify-between">
                         <input type="text" :class="{ 'line-through font-bold text-green-500': todo.completed }"
                             class="border-none w-full text-sm p-0" v-model="todo.title" disabled>
-                        <TodoActionsButton @click="toggleOptions(todo.id)" />
-                    </div>
 
+                        <TodoActionsButton @click="toggleShowOptions(todo.id)" />
+                    </div>
 
                     <TodoOptions :isCompleted="todo.completed" v-if="showOptions.show && showOptions.id === todo.id" />
                 </div>
