@@ -1,20 +1,9 @@
 <script setup>
 import { Head } from '@inertiajs/vue3'
-import { ref } from 'vue'
 
 import AuthLayout from '@/Layouts/AuthLayout.vue'
 import TodoOptions from '@/Components/TodoOptions.vue'
-import TodoActionsButton from '@/Components/TodoActionsButton.vue'
-
-const showOptions = ref({
-    show: false,
-    id: null
-})
-
-const toggleShowOptions = (id) => {
-    showOptions.value.show = !showOptions.value.show
-    showOptions.value.id = id
-}
+import ExpandIcon from '@/Components/ExpandIcon.vue'
 
 const todos = [
     {
@@ -75,7 +64,7 @@ const todos = [
     <Head title="Todo" />
 
     <AuthLayout>
-        <div class="flex flex-col gap-4 bg-gray-700 text-white p-4 h-full">
+        <div class="flex flex-col gap-4 py-4 max-w-sm mx-auto">
             <h1 class="text-xl text-center">Todos</h1>
 
             <div class="flex flex-col gap-2 bg-white p-4 rounded">
@@ -85,7 +74,7 @@ const todos = [
             </div>
 
             <div class="flex">
-                <select class="text-sm py-0.5 px-2 rounded bg-inherit">
+                <select class="text-sm py-0.5 rounded bg-inherit">
                     <option disabled selected>Filter by</option>
                     <option>Oldest</option>
                     <option>Newest</option>
@@ -93,21 +82,18 @@ const todos = [
                 </select>
             </div>
 
-            <div class="flex flex-col gap-2">
-                <div v-for="todo in todos" :key="todo.id"
-                    class="flex flex-col gap-2 p-3 rounded text-gray-700 bg-white">
+            <div class="flex flex-col gap-2 text-gray-700">
+                <div v-for="todo in todos" :key="todo.id" class="flex flex-col gap-2 rounded px-4 py-2 bg-white">
 
                     <div class="flex items-center justify-between">
                         <input type="text" :class="{ 'line-through font-bold text-green-500': todo.completed }"
                             class="border-none w-full text-sm p-0" v-model="todo.title" disabled>
-
-                        <TodoActionsButton @click="toggleShowOptions(todo.id)" />
+                        <ExpandIcon />
                     </div>
 
-                    <TodoOptions :isCompleted="todo.completed" v-if="showOptions.show && showOptions.id === todo.id" />
+                    <TodoOptions />
                 </div>
             </div>
-
         </div>
     </AuthLayout>
 </template>

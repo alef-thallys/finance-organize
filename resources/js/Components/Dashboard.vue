@@ -7,7 +7,7 @@ defineEmits(['closeDashboard'])
 
 <template>
     <div
-        class="fixed top-[4rem] left-0 flex flex-col w-2/3 px-4 py-1 rounded-r-3xl shadow-md text-gray-700 bg-white z-10">
+        class="fixed top-[4rem] left-0 flex flex-col w-52 px-4 py-1 rounded-r-3xl shadow-md text-gray-700 bg-white z-10">
 
         <ExitIcon @click="$emit('closeDashboard')" class="absolute top-3 right-3 cursor-pointer" />
 
@@ -25,11 +25,12 @@ defineEmits(['closeDashboard'])
         Finance Tracker
         </Link>
 
-        <!--  <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Chat' }">
+        <Link class="py-2 w-fit" href="/chat"
+            :class="{ 'underline font-bold': $page.component === 'Auth/Dashboard/Chat' }">
         Chat Room
         </Link>
 
-        <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Settings' }">
+        <!--   <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Settings' }">
         Settings
         </Link> -->
     </div>
