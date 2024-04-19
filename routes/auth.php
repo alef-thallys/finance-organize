@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'Auth/Dashboard/Dashboard')->name('home');
+Route::inertia('/', 'Auth/Dashboard')->name('home');
 
-Route::inertia('/todo', 'Auth/Dashboard/Todo');
-Route::inertia('/finance', 'Auth/Dashboard/Finance');
-Route::inertia('/chat', 'Auth/Dashboard/Chat');
+Route::inertia('/todo', 'Auth/Todo');
+Route::inertia('/finance', 'Auth/Finance');
+Route::inertia('/chat', 'Auth/Chat');
