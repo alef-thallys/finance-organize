@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/vue3'
 
 <template>
 
-    <Head title="Home" />
+    <Head title="Dashboard" />
 
     <AuthLayout>
         <div class="flex flex-col gap-4 py-4 max-w-sm mx-auto">

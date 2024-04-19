@@ -16,7 +16,7 @@ import { Link } from '@inertiajs/vue3'
             </nav>
         </header>
 
-        <main class="flex-1 flex items-center justify-center px-4">
+        <main class="flex-grow flex justify-center items-center px-5 bg-gray-700">
             <slot />
         </main>
 

@@ -32,7 +32,7 @@ const handleShowDashboard = () => {
             <DashboardButton @click="handleShowDashboard" v-else />
         </div>
 
-        <main class="flex-grow bg-gray-700 px-5 text-white">
+        <main class="flex-grow px-5 bg-gray-700 text-white">
             <slot />
         </main>
 

@@ -11,7 +11,7 @@ defineEmits(['closeDashboard'])
 
         <ExitIcon @click="$emit('closeDashboard')" class="absolute top-3 right-3 cursor-pointer" />
 
-        <Link class="py-2 w-fit" href="/" :class="{ 'underline font-bold': $page.component === 'Auth/Dashboard/Home' }">
+        <Link class="py-2 w-fit" href="/" :class="{ 'underline font-bold': $page.component === 'Auth/Dashboard/Dashboard' }">
         Dashboard
         </Link>
 
@@ -30,8 +30,14 @@ defineEmits(['closeDashboard'])
         Chat Room
         </Link>
 
-        <!--   <Link class="py-2" href="" :class="{ 'underline font-bold': $page.component === 'Auth/Settings' }">
+        <!-- 
+        <Link class="py-2" href="/settings"
+            :class="{ 'underline font-bold': $page.component === 'Auth/Dashboard/Settings' }">
         Settings
         </Link> -->
+
+        <Link class="py-2 w-fit" href="/logout">
+        Logout
+        </Link>
     </div>
 </template>

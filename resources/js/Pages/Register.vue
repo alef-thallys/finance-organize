@@ -9,7 +9,7 @@ import { Head, Link } from '@inertiajs/vue3'
 
     <GuestLayout>
         <div class="w-full max-w-sm">
-            <form class="flex flex-col gap-4">
+            <form class="flex flex-col gap-4 p-4 rounded bg-white">
                 <div class="flex flex-col gap-2">
                     <label for="name">Name</label>
                     <input type="text" name="name" id="name" class="border px-2 py-1 rounded border-gray-300"
