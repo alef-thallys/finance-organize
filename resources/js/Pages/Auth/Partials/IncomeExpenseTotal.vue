@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-defineProps({
+const { formatCurrency, income, expenses } = defineProps({
     formatCurrency: {
         type: Function,
         required: true

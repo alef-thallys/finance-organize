@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-defineProps({
+const { options } = defineProps({
     options: {
         type: Object,
         required: true

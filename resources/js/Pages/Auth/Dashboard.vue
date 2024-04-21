@@ -3,7 +3,7 @@
     <Head title="Dashboard" />
 
     <AuthLayout>
-        <div class="flex flex-col gap-4 py-4 max-w-sm mx-auto">
+        <div class="flex flex-col gap-4 py-4 max-w-md mx-auto">
             <h1 class="text-xl text-center">Dashboard</h1>
 
             <TodoStatus />

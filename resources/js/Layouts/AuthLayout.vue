@@ -28,7 +28,7 @@ import Footer from '@/Components/Footer.vue'
 import Menu from '@/Components/Menu/Menu.vue'
 import OpenMenu from '@/Components/Menu/OpenMenu.vue'
 
-defineProps({
+const { showFooter } = defineProps({
     showFooter: {
         type: Boolean,
         default: true

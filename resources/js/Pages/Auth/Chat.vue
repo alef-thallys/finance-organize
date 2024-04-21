@@ -3,7 +3,7 @@
     <Head title="Chat Room" />
 
     <AuthLayout :showFooter="false">
-        <div class="flex flex-col gap-4 py-4 mx-auto h-[calc(100vh-52px)]">
+        <div class="flex flex-col gap-4 py-4 max-w-md mx-auto h-[calc(100vh-52px)]">
             <h1 class="text-xl text-center ">Chat Room</h1>
 
             <div class="flex flex-grow flex-col gap-4 py-4 px-2 overflow-scroll border-y border-gray-500">

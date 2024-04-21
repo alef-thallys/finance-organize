@@ -1,5 +1,6 @@
 <template>
     <div class="flex justify-end gap-4">
+        <!-- Uncompleted -->
         <div v-if="isCompleted">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
@@ -8,6 +9,7 @@
             </svg>
         </div>
 
+        <!-- Completed -->
         <div v-else>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
@@ -16,7 +18,8 @@
             </svg>
         </div>
 
-        <div>
+        <!-- Edit -->
+        <div @click="$emit('editTodo')">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -24,6 +27,7 @@
             </svg>
         </div>
 
+        <!-- Delete -->
         <div>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
@@ -35,7 +39,12 @@
 </template>
 
 <script setup>
-defineProps({
-    isCompleted: Boolean
+defineEmits(['edit'])
+
+const { isCompleted } = defineProps({
+    isCompleted: {
+        type: Boolean,
+        required: true
+    }
 })
 </script>
