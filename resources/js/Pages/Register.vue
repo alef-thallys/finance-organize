@@ -49,10 +49,7 @@
                     </Link>
                 </span>
 
-                <div class="flex justify-center">
-                    <input class="w-full py-2 rounded cursor-pointer bg-gray-700 text-white" type="submit"
-                        value="Register" />
-                </div>
+                <input class="w-full cursor-pointer py-2 rounded bg-gray-700 text-white" type="submit" value="Register" />
             </form>
         </Container>
 

@@ -34,7 +34,7 @@
                     </Link>
                 </span>
 
-                <input class="w-full py-2 rounded bg-gray-700 text-white" type="submit" value="Login" />
+                <input class="w-full cursor-pointer py-2 rounded bg-gray-700 text-white" type="submit" value="Login" />
             </form>
         </Container>
 

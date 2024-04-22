@@ -22,17 +22,21 @@ const menuOpions = [
     {
         name: 'Todo',
         path: 'Auth/Todo',
-        link: '/todo'
+        link: '/todos'
     },
     {
         name: 'Finance',
         path: 'Auth/Finance',
-        link: '/finance'
+        link: '/finances'
     },
     {
         name: 'Chat',
         path: 'Auth/Chat',
-        link: '/chat'
+        link: '/chats'
     },
+    {
+        name: 'Logout',
+        link: '/users/logout'
+    }
 ]
 </script>

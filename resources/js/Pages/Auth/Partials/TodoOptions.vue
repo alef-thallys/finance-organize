@@ -1,20 +1,17 @@
 <template>
     <div class="flex justify-end gap-4">
-        <!-- Uncompleted -->
-        <div v-if="isCompleted">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        <!-- Completed or Incomplete -->
+        <div @click="toggleComplete">
+            <svg v-if="isCompleted" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="w-5 h-5 cursor-pointer">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+
+            <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
                 <path stroke-linecap="round" stroke-linejoin="round"
                     d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-        </div>
-
-        <!-- Completed -->
-        <div v-else>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-5 h-5 cursor-pointer">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
         </div>
 
@@ -28,7 +25,7 @@
         </div>
 
         <!-- Delete -->
-        <div>
+        <div @click="$emit('deleteTodo')">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -39,12 +36,8 @@
 </template>
 
 <script setup>
-defineEmits(['edit'])
+const emit = defineEmits(['editTodo', 'completeTodoToggle', 'deleteTodo'])
+const { isCompleted } = defineProps({ isCompleted: Boolean })
 
-const { isCompleted } = defineProps({
-    isCompleted: {
-        type: Boolean,
-        required: true
-    }
-})
+const toggleComplete = () => emit('completeTodoToggle')
 </script>
