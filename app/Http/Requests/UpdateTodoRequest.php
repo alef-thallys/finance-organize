@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTodoRequest extends FormRequest
+class UpdateTodoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class StoreTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255', 'unique:todos,title,' . ',id,user_id,' . auth()->id()],
+            'title' => ['string', 'max:255', 'unique:todos,title,' . $this->todo->id . ',id,user_id,' . auth()->id()],
         ];
     }
 }

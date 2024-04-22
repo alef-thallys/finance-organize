@@ -4,19 +4,36 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTodoRequest;
+use App\Http\Requests\UpdateTodoRequest;
 use App\Models\Todo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class TodoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        if (auth()->check()) {
-            $todos = Todo::whereUserId(auth()->id())->get()->toArray();
-            return inertia('Auth/Todo', [
-                'todos' => $todos,
-            ]);
-        }
+        $userId = auth()->user()->id;
+        $query = Todo::whereUserId($userId);
+
+        if ($request->has('filter')) {
+            $filter = $request->filter;
+
+            switch ($filter) {
+                case 'active':
+                    $query->where('completed', false);
+                    break;
+                case 'completed':
+                    $query->where('completed', true);
+                    break;
+                case 'alphabetical':
+                    $query->orderBy('title');
+                    break;
+            }
+        };
+
+        $todos = $query->get();
+        return inertia('Auth/Todo', compact('todos'));
     }
 
     public function store(StoreTodoRequest $request)
@@ -29,9 +46,9 @@ class TodoController extends Controller
         return back();
     }
 
-    public function update(Todo $todo, Request $request)
+    public function update(Todo $todo, UpdateTodoRequest $request)
     {
-        if ($todo->user_id != auth()->user()->id) abort(403);
+        Gate::authorize('manage-todo', $todo);
 
         if (empty($request->all())) {
             $todo->completed = !$todo->completed;
@@ -45,8 +62,10 @@ class TodoController extends Controller
 
     public function destroy(Todo $todo)
     {
-        if ($todo->user_id != auth()->user()->id) abort(403);
+        Gate::authorize('manage-todo', $todo);
+
         $todo->delete();
+
         return back();
     }
 }
