@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-end gap-4">
-        <div @click="$emit('editFinance')">
+        <div @click="editFinance">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -8,7 +8,7 @@
             </svg>
         </div>
 
-        <div>
+        <div @click="deleteFinance">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-5 h-5 cursor-pointer">
                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -19,5 +19,8 @@
 </template>
 
 <script setup>
-defineEmits(['editFinance'])
+const emit = defineEmits(['editFinance', 'deleteFinance'])
+
+const editFinance = () => emit('editFinance')
+const deleteFinance = () => emit('deleteFinance')
 </script>

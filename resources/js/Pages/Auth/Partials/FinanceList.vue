@@ -1,46 +1,70 @@
 <template>
     <Modal v-if="showModal">
-        <EditFinance @closeModal="closeModal()" :finance="finance" />
+        <EditFinance @closeModal="toggleModal" @updateFinance="updateFinance" :form="form" />
     </Modal>
 
-    <div class="flex flex-col gap-4 rounded px-4 py-4 font-bold"
-        :class="{ 'bg-green-500': finance.amount > 0, 'bg-red-500': finance.amount < 0 }">
-        <div class="flex items-center justify-between">
-            <input type="text" class="border-none w-full text-sm p-0 bg-inherit" v-model="finance.name" disabled>
+    <div class="flex flex-col gap-4 rounded px-4 py-4 bg-gray-800"
+        :class="{ 'bg-green-500': finance.value > 0, 'bg-red-500': finance.value < 0 }">
 
-            <div class="flex items-center gap-5">
-                <span class="font-semibold ">{{ formatCurrency(finance.amount) }}</span>
-                <ShowOptions @click="showOptions = !showOptions" />
+        <div class="flex items-center justify-between">
+
+            <span>
+                {{ finance.title }}
+            </span>
+
+            <div class="flex items-center gap-4">
+
+                <span>
+                    {{ formatCurrency(finance.value) }}
+                </span>
+
+                <ShowOptions @click="toggleOptions" />
+
             </div>
+
         </div>
-        <FinanceListOptions @editFinance="openModal()" v-if="showOptions" />
+
+        <FinanceOptions v-if="showOptions" @editFinance="toggleModal" @deleteFinance="deleteFinance" />
     </div>
+
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { reactive, ref } from 'vue'
+import { router } from '@inertiajs/vue3'
 
 import Modal from '@/Components/Modal.vue'
 import EditFinance from '@/Pages/Auth/Partials/EditFinance.vue'
 import ShowOptions from '@/Pages/Auth/Partials/ShowOptions.vue'
-import FinanceListOptions from '@/Pages/Auth/Partials/FinanceOptions.vue'
+import FinanceOptions from '@/Pages/Auth/Partials/FinanceOptions.vue'
 
-const { finance, formatCurrency } = defineProps({
-    finance: {
-        type: Object,
-        required: true
-    },
-
-    formatCurrency: {
-        type: Function,
-        required: true
-    }
+const { finance } = defineProps({
+    finance: { type: Object, required: true },
 })
 
-const showModal = ref(false)
-
-const openModal = () => showModal.value = true
-const closeModal = () => showModal.value = false
+const form = reactive({
+    title: finance.title,
+    value: finance.value
+})
 
 const showOptions = ref(false)
+const toggleOptions = () => showOptions.value = !showOptions.value
+
+const showModal = ref(false)
+const toggleModal = () => showModal.value = !showModal.value
+
+const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('pt-BR',
+        { style: 'currency', currency: 'BRL' }
+    ).format(amount)
+}
+
+// update a finance
+const updateFinance = () => {
+    router.put(`/finances/${finance.id}`, form)
+    toggleModal()
+}
+
+// delete a finance
+const deleteFinance = () => router.delete(`/finances/${finance.id}`)
 </script>

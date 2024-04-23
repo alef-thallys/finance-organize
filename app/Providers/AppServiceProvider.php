@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Finance;
 use App\Models\Todo;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -22,8 +23,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('manage-todo', function (User $user, Todo $todo) {
-            return $user->id === $todo->user_id;
+        Gate::define('manage', function (User $user, $model) {
+            return $user->id === $model->user_id;
         });
     }
 }

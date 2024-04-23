@@ -6,27 +6,26 @@
         <div class="flex flex-col gap-4 py-4 max-w-md mx-auto">
             <h1 class="text-xl text-center">Todos</h1>
 
-            <CreateTodo @updateTitle="updateTitle($event)" @createTodo="createTodo()" :title="form.title" />
+            <CreateTodo @createTodo="createTodo()" :form="form" />
 
-            <select @input="filterTodos($event.target.value)"
-                class="border px-2 py-1 rounded bg-inherit border-gray-300">
-                <option value="default" disabled :selected="$page.url === '/todos'">
-                    Filter by
-                </option>
+            <Filter @submitFilter="submitFilter($event)" componentName="todos" :filters="filters" />
 
-                <option v-for="filter in filters" :key="filter" :value="filter"
-                    :selected="$page.url === '/todos?filter=' + filter">
-                    {{ filter.slice(0, 1).toUpperCase() + filter.slice(1) }}
-                </option>
-            </select>
+            <div v-if="todos.length === 0" class="text-sm py-2 text-center rounded bg-blue-100 text-blue-500">
+                There are no
+                <span v-if="$page.url.split('=')[1] !== 'all'">
+                    {{ $page.url.split('=')[1] }}
+                </span>
+                todos to show
+            </div>
 
             <div v-if="errors && errors.title" class="text-sm py-2 text-center rounded bg-red-100 text-red-500">
                 {{ errors.title }}
             </div>
 
-            <div class="flex flex-col gap-2 text-gray-700">
+            <div class="flex flex-col gap-2 text-[16px] text-gray-700">
                 <TodoList v-for="todo in todos" :key="todo.id" :todo="todo" />
             </div>
+
         </div>
     </AuthLayout>
 </template>
@@ -38,11 +37,14 @@ import { reactive } from 'vue'
 import AuthLayout from '@/Layouts/AuthLayout.vue'
 import CreateTodo from '@/Pages/Auth/Partials/CreateTodo.vue'
 import TodoList from '@/Pages/Auth/Partials/TodoList.vue'
+import Filter from '@/Pages/Auth/Partials/Filter.vue'
 
-const { todos, errors } = defineProps({ todos: Array, errors: Object })
+const { todos, errors } = defineProps({
+    todos: { type: Object, required: true },
+    errors: { type: Object, required: false }
+})
+
 const form = reactive({ title: '' })
-
-const updateTitle = (value) => form.title = value
 
 // create a todo
 const createTodo = () => {
@@ -52,7 +54,7 @@ const createTodo = () => {
 
 const filters = ['all', 'active', 'completed', 'alphabetical']
 
-const filterTodos = (value) => {
+const submitFilter = (value) => {
     router.get('/todos', { filter: value })
 }
 </script>

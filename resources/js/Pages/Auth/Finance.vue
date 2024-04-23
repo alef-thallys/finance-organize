@@ -6,55 +6,60 @@
         <div class="flex flex-col gap-4 py-4 max-w-md mx-auto">
             <h1 class="text-xl text-center">Finance</h1>
 
-            <IncomeExpenseTotal :formatCurrency="formatCurrency" :income="income" :expenses="expenses" />
-            <CreateFinance />
-            <FilterBy :options="filterOptions" />
+            <CreateFinance @createFinance="createFinance" :form="form" />
+
+            <div v-if="errors && errors.title" class="text-sm py-2 text-center rounded bg-red-100 text-red-500">
+                {{ errors.title }}
+            </div>
+
+            <div v-if="errors && errors.value" class="text-sm py-2 text-center rounded bg-red-100 text-red-500">
+                {{ errors.value }}
+            </div>
+
+            <Filter @submitFilter="submitFilter($event)" componentName="finances" :filters="filters" />
+
+            <div v-if="finances.length === 0" class="text-sm py-2 text-center rounded bg-blue-100 text-blue-500">
+                There are no
+                <span v-if="$page.url.split('=')[1] !== 'all'">
+                    {{ $page.url.split('=')[1] }}
+                </span>
+                finances to show
+            </div>
 
             <div class="flex flex-col gap-2 text-[16px]">
-                <FinanceList v-for="finance in finances" :key="finances.id" :finance="finance"
-                    :formatCurrency="formatCurrency" />
+                <FinanceList v-for="finance in finances" :key="finance.id" :finance="finance" />
             </div>
+
         </div>
     </AuthLayout>
 </template>
 
 <script setup>
-import { Head } from '@inertiajs/vue3'
-import { ref, onMounted } from 'vue'
+import { Head, router } from '@inertiajs/vue3'
+import { reactive } from 'vue'
 
 import AuthLayout from '@/Layouts/AuthLayout.vue'
-import IncomeExpenseTotal from '@/Pages/Auth/Partials/IncomeExpenseTotal.vue'
 import CreateFinance from '@/Pages/Auth/Partials/CreateFinance.vue'
-import FilterBy from '@/Pages/Auth/Partials/FilterBy.vue'
+import Filter from '@/Pages/Auth/Partials/Filter.vue'
 import FinanceList from '@/Pages/Auth/Partials/FinanceList.vue'
 
-const filterOptions = [
-    { id: 1, name: 'Income' },
-    { id: 2, name: 'Expenses' }
-]
+const { finances, errors } = defineProps({
+    finances: { type: Object, required: true },
+    errors: { type: Object, required: false }
+});
 
-const finances = ref([
-    { id: 1, name: 'Rent', amount: 193 },
-    { id: 2, name: 'Electric Bill', amount: -230 },
-    { id: 3, name: 'Gas Bill', amount: -21 },
-    { id: 4, name: 'Internet Bill', amount: -42 },
-    { id: 5, name: 'Salary', amount: 5500 }
-])
+const form = reactive({ title: '', value: 0 })
 
-const income = ref(0);
-const expenses = ref(0);
-
-const incomeExpenseTotal = () => {
-    finances.value.forEach((finance) => {
-        finance.amount > 0 ? income.value += finance.amount : expenses.value += finance.amount
-    })
+// create finance
+const createFinance = () => {
+    router.post('/finances', form)
+    form.title = ''
+    form.value = 0
 }
 
-const formatCurrency = (amount) => {
-    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount)
-}
+const filters = ['all', 'income', 'expense', 'alphabetical']
 
-onMounted(() => {
-    incomeExpenseTotal()
-})
+const submitFilter = (value) => {
+    router.get('/finances', { filter: value })
+}
 </script>

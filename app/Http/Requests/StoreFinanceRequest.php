@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTodoRequest extends FormRequest
+class StoreFinanceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,9 @@ class StoreTodoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:30', 'unique:todos,title,' . ',id,user_id,' . auth()->id()],
+            'title' => ['required', 'string', 'max:30', 'unique:finances,title,' . ',id,user_id,' . auth()->id()],
+
+            'value' => ['required', 'integer', 'not_in:0']
         ];
     }
 }

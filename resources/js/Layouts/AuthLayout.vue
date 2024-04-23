@@ -5,7 +5,7 @@
         </Header>
 
         <Menu @closeMenu="showMenu = false" v-if="showMenu" />
-        <OpenMenu @click="showMenu = !showMenu" v-else />
+        <OpenMenu @openMenu="toggleMenu" v-else />
 
         <main class="flex-grow px-5 bg-gray-700 text-white">
             <slot />
@@ -36,4 +36,8 @@ const { showFooter } = defineProps({
 })
 
 const showMenu = ref(false);
+
+const toggleMenu = () => {
+    showMenu.value = !showMenu.value
+}
 </script>

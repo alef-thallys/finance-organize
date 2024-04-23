@@ -48,7 +48,7 @@ class TodoController extends Controller
 
     public function update(Todo $todo, UpdateTodoRequest $request)
     {
-        Gate::authorize('manage-todo', $todo);
+        Gate::authorize('manage', $todo);
 
         if (empty($request->all())) {
             $todo->completed = !$todo->completed;
@@ -62,7 +62,7 @@ class TodoController extends Controller
 
     public function destroy(Todo $todo)
     {
-        Gate::authorize('manage-todo', $todo);
+        Gate::authorize('manage', $todo);
 
         $todo->delete();
 
