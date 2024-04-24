@@ -30,11 +30,6 @@ const menuOpions = [
         link: '/finances'
     },
     {
-        name: 'Chat',
-        path: 'Auth/Chat',
-        link: '/chats'
-    },
-    {
         name: 'Logout',
         link: '/users/logout'
     }

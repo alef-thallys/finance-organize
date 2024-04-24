@@ -26,7 +26,7 @@
                 finances to show
             </div>
 
-            <div class="flex flex-col gap-2 text-[16px]">
+            <div class="flex flex-col gap-2">
                 <FinanceList v-for="finance in finances" :key="finance.id" :finance="finance" />
             </div>
 

@@ -2,14 +2,14 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\TodoController;
-use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\Auth\DashboardController;
+use App\Http\Controllers\Auth\FinanceController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth'])->group(function () {
-    Route::inertia('/', 'Auth/Dashboard')->name('home');
+    Route::get('/', [DashboardController::class, 'index'])->name('home');
+    Route::get('/users/logout', [AuthController::class, 'logout']);
 
     Route::resource('/todos', TodoController::class);
     Route::resource('/finances', FinanceController::class);
-
-    Route::get('/users/logout', [AuthController::class, 'logout']);
 });

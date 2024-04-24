@@ -22,7 +22,7 @@
                 {{ errors.title }}
             </div>
 
-            <div class="flex flex-col gap-2 text-[16px] text-gray-700">
+            <div class="flex flex-col gap-2 text-gray-700">
                 <TodoList v-for="todo in todos" :key="todo.id" :todo="todo" />
             </div>
 
